@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-docker-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx-docker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-docker
+    spec:
+      containers:
+      - name: jenkins-docker
+    # enter the path to your image, be sure to include the correct region prefix    
+        image: iad.ocir.io/idreywyoj0pu/nginx:latest
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+    # enter the name of the secret you created  
+      - name: registrysecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-docker-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: nginx-docker
