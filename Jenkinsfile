@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Deploy to k8s'){
             steps{
-                sh "sudo kubectl create -f manifest.yml"
+                sh "sudo /usr/local/bin/kubectl create -f manifest.yml"
 
                         
             }
