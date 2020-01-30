@@ -11,8 +11,7 @@ pipeline {
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
+                    sh "docker login iad.ocir.io -u ladcloudadoption/oracleidentitycloudservice/fabio.saito@oracle.com -p }NXWhR[_-O+Ntkzgsvs2"
                     sh "docker push kammana/nodeapp:${DOCKER_TAG}"
                 }
             }
