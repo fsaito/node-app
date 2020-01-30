@@ -6,12 +6,11 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "sudo docker build . -t iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG} "
+                sh "sudo docker build . -t iad.ocir.io/idreywyoj0pu/nginx:latest"
             }
         }
         stage('DockerHub Push'){
             steps{
-                    sh "sudo docker tag iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG} iad.ocir.io/idreywyoj0pu/nginx:latest"
                     sh "sudo docker push iad.ocir.io/idreywyoj0pu/nginx:latest"
             }
         }
