@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx-docker
+        app: node-docker
     spec:
       containers:
       - name: node-docker
