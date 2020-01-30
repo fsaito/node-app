@@ -11,20 +11,14 @@ pipeline {
         }
         stage('DockerHub Push'){
             steps{
-                    sh "sudo docker push iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG}"
+                    sh "sudo docker tag iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG} iad.ocir.io/idreywyoj0pu/nginx:latest"
+                    sh "sudo docker push iad.ocir.io/idreywyoj0pu/nginx:latest"
             }
         }
         stage('Deploy to k8s'){
             steps{
-                sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(['kops-machine']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@52.66.70.61:/home/ec2-user/"
-                    script{
-                        try{
-                            sh "ssh ec2-user@52.66.70.61 kubectl apply -f ."
-                        }catch(error){
-                            sh "ssh ec2-user@52.66.70.61 kubectl create -f ."
+                sh "sudo kubectl create -f manifest.yml"
+
                         }
                     }
                 }
