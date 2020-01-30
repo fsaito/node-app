@@ -12,7 +12,6 @@ pipeline {
         stage('DockerHub Push'){
             steps{
                     sh "docker push iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG}"
-                }
             }
         }
         stage('Deploy to k8s'){
