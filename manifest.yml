@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-docker-deployment
+  name: node-docker-deployment
 spec:
   selector:
     matchLabels:
-      app: nginx-docker
+      app: node-docker
   replicas: 1
   template:
     metadata:
@@ -13,9 +13,9 @@ spec:
         app: nginx-docker
     spec:
       containers:
-      - name: jenkins-docker
+      - name: node-docker
     # enter the path to your image, be sure to include the correct region prefix    
-        image: iad.ocir.io/idreywyoj0pu/nginx:latest
+        image: iad.ocir.io/idreywyoj0pu/node:latest
         ports:
         - containerPort: 8080
       imagePullSecrets:
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-docker-service
+  name: node-docker-service
 spec:
   type: LoadBalancer
   ports:
@@ -33,4 +33,4 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: nginx-docker
+    app: node-docker
