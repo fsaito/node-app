@@ -6,12 +6,12 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "sudo docker build . -t kammana/nodeapp:${DOCKER_TAG} "
+                sh "sudo docker build . -t iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
-                    sh "docker push kammana/nodeapp:${DOCKER_TAG}"
+                    sh "docker push iad.ocir.io/idreywyoj0pu/nginx:${DOCKER_TAG}"
                 }
             }
         }
