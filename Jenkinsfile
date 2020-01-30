@@ -9,7 +9,7 @@ pipeline {
                 sh "sudo docker build . -t iad.ocir.io/idreywyoj0pu/nodejs:latest"
             }
         }
-        stage('DockerHub Push'){
+        stage('OCI Registry Push'){
             steps{
                     sh "sudo docker push iad.ocir.io/idreywyoj0pu/nodejs:latest"
             }
