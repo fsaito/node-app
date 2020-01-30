@@ -19,13 +19,12 @@ pipeline {
             steps{
                 sh "sudo kubectl create -f manifest.yml"
 
-                        }
-                    }
-                }
+                        
             }
-        }
+        }  
     }
 }
+
 
 def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
