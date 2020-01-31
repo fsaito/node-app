@@ -1,31 +1,26 @@
+#!groovy
+
 pipeline {
-    agent any
-    environment{
-        DOCKER_TAG = getDockerTag()
+    agent {
+        docker {
+            image 'node:6-alpine'
+            args '-p 3000:3000'
+        }
     }
-    stages{
-        stage('Build Docker Image'){
-            steps{
-                sh "sudo docker build . -t iad.ocir.io/idreywyoj0pu/nodejs:latest"
+    environment {
+        CI = 'true' 
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+                sh 'apk add yarn'
             }
         }
-        stage('OCI Registry Push'){
-            steps{
-                    sh "sudo docker push iad.ocir.io/idreywyoj0pu/nodejs:latest"
+        stage('Test') { 
+            steps {
+                sh 'echo "Sucesso!!!"' 
             }
         }
-        stage('Deploy to k8s'){
-            steps{
-                sh "sudo /usr/local/bin/kubectl create -f manifest.yml"
-
-                        
-            }
-        }  
     }
-}
-
-
-def getDockerTag(){
-    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
 }
