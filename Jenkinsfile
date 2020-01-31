@@ -1,5 +1,3 @@
-#!groovy
-
 pipeline {
     agent {
         docker {
@@ -19,7 +17,7 @@ pipeline {
         }
         stage('Test') { 
             steps {
-                sh 'echo "Sucesso!!!"' 
+                sh 'echo Sucesso!!!' 
             }
         }
     }
